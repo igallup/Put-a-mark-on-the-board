@@ -1,39 +1,28 @@
 <template>
   <div>
+
+    <h1>{{ title}}</h1>
     <table>
       <tr>
         <th>Team Member</th>
         <th>Marks</th>
       </tr>
-
-      <tr v-for="item in items" v-bind:key="items.name">
-        <td>
-          {{ item.name}}
-        </td>
-        <td>
-          {{ item.markCount }}
-        </td>
-        <td>
-          <button @click="updateCount(item, 1)">+</button>
-        </td>
-        <td>
-          <button @click="updateCount(item, -1)">-</button>
-        </td>
-        <td>
-          <button>Forgive and forget</button>
-        </td>
-      </tr>
+        <ParticipantRow v-for="participant in participants" v-bind:key="participant.name" :participant="participant" ></ParticipantRow>
     </table>
     <input v-model="newName" type="text" placeholder="New loser"><button @click="addParticipant()">Add new participant</button>
   </div>
 </template>
-// Break out each row into its own component - i.e. from ParticipantRow.vue into this file
+
 // Need a list of names to iterate over
 <script>
+  import ParticipantRow from './ParticipantRow.vue'
   export default {
+    components: {
+      ParticipantRow
+    },
     data: () => ({
-        title: 'Put a Mark on the Board for',
-        items: [
+      title: 'Put a Mark on the Board for',
+        participants: [
           {"name":"Isaac", "markCount": 0},
           {"name":"Jacob", "markCount": 0}
         ],
@@ -42,13 +31,9 @@
     methods: {
       addParticipant() {
         let newUser = {'name':this.newName, 'markCount':0}
-        this.items.push(newUser);
-        },
-      updateCount(item, num) {
-
-        item.markCount += num;
-      }
-  }
+        this.participants.push(newUser);
+        }
+    }
   }
 </script>
 

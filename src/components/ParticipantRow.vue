@@ -5,7 +5,8 @@
         </td>
         <td>
           {{ participant.markCount }}
-<!--            &nbsp;-->
+<!-- abandoned tally mark functionality, for now
+    &nbsp;-->
 <!--            <div v-for="mark in participant.markCount">{{ mark }}</div>-->
         </td>
         <td>

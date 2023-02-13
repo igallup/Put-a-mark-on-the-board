@@ -2,15 +2,15 @@
   <div>
 
     <h1>{{ title}}</h1>
-    <table>
+    <div class="table-container">
 <!--      flex layouts with divs instead of tables, trs, and tds-->
-      <tr>
-        <th>Team Member</th>
-        <th>Marks</th>
+      <div>
+        <div>Team Member</div>
+        <div>Marks</div>
 
-      </tr>
+      </div>
         <ParticipantRow v-for="participant in participants" v-bind:key="participant.name" :participant="participant" @removeParticipant="removeParticipant" ></ParticipantRow>
-    </table>
+    </div>
     <input v-model="newName" type="text" placeholder="New loser"><button class="resetBtn" @click="addParticipant()">Add new participant</button>
   </div>
 </template>
@@ -32,9 +32,10 @@
     methods: {
       addParticipant() {
         let newUser = {'name':this.newName, 'markCount':0}
-        this.participants.push(newUser);
-        //validate for empty input
-        //clear input field when participant added
+        if (this.newName !== '') {
+          this.participants.push(newUser);
+          this.newName = ''
+        }
         },
       removeParticipant(name) {
         const index = this.participants.findIndex(item => item.name === name);
@@ -47,6 +48,14 @@
 </script>
 
 <style>
+.table-container {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
 h1  {
   color: cadetblue;
 }
